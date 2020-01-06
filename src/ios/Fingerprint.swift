@@ -87,23 +87,9 @@ import LocalAuthentication
         var policy:LAPolicy = .deviceOwnerAuthentication;
         let data  = command.arguments[0] as AnyObject?;
 
-        if let disableBackup = data?["disableBackup"] as! Bool? {
-            if disableBackup {
-                authenticationContext.localizedFallbackTitle = "";
-                policy = .deviceOwnerAuthenticationWithBiometrics;
-            } else {
-                if let fallbackButtonTitle = data?["fallbackButtonTitle"] as! String? {
-                    authenticationContext.localizedFallbackTitle = fallbackButtonTitle;
-                }else{
-                    authenticationContext.localizedFallbackTitle = "Use Pin";
-                }
-            }
-        }
-
-        // Localized reason
-        if let description = data?["description"] as! String? {
-            reason = description;
-        }
+        authenticationContext.localizedFallbackTitle = "";
+        policy = .deviceOwnerAuthenticationWithBiometrics;
+        reason = "Autenticação";
 
         authenticationContext.evaluatePolicy(
             policy,
